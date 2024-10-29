@@ -6,7 +6,7 @@ import lemonsqueezy.easypeasy.randompic.util.Answer
 
 interface RandomPicRepository {
 
-    fun getPics(): Flow<Answer<List<Pic>>>
+    fun getPics(page: Int, limit: Int): Flow<Answer<List<Pic>>>
 
     fun getPicDetail(): Flow<Answer<Pic>>
 }
