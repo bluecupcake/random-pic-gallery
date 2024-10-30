@@ -9,4 +9,7 @@
     <string name="back">Back</string>
     <string name="refresh">Refresh</string>
     <string name="loading">Loading animation</string>
+    <string name="unknown_error_message">Uuups!\nSomething went very wrong:(</string>
+    <string name="network_error_message">What about an Internet connection?\nCheck it out;)</string>
+    <string name="data_error_message">Couldn\'t load data\n¯\_(ツ)_/¯</string>
 </resources>

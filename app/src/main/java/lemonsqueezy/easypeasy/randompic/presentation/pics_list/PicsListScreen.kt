@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -72,15 +73,31 @@ fun PicsListScreen(
                     contentScale = ContentScale.Fit,
                 )
 
-                false -> PicsList(
-                    modifier = Modifier.fillMaxSize(),
-                    navController = navController,
-                    pics = state.pics.toTypedArray(),
-                    state.page,
-                    onRefresh = {
-                        viewModel.onEvent(PicListEvent.Refresh)
+                false -> {
+                    if (state.errorMessageId == null) {
+                        PicsList(
+                            modifier = Modifier.fillMaxSize(),
+                            navController = navController,
+                            pics = state.pics.toTypedArray(),
+                            state.page,
+                            onRefresh = {
+                                viewModel.onEvent(PicListEvent.Refresh)
+                            }
+                        )
+                    } else {
+                        Box(modifier = Modifier
+                            .padding(32.dp)
+                            .fillMaxSize()
+                        ) {
+                            Text(
+                                text = stringResource(id = state.errorMessageId),
+                                color = MaterialTheme.colorScheme.primary,
+                                fontSize = 24.sp,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
                     }
-                )
+                }
             }
         }
     }

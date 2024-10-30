@@ -1,7 +1,10 @@
 package lemonsqueezy.easypeasy.randompic.data.repository
 
+import android.accounts.NetworkErrorException
+import android.net.http.NetworkException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import lemonsqueezy.easypeasy.randompic.R
 import lemonsqueezy.easypeasy.randompic.data.remote.RandomPicApi
 import lemonsqueezy.easypeasy.randompic.domain.model.Pic
 import lemonsqueezy.easypeasy.randompic.domain.repository.RandomPicRepository
@@ -14,7 +17,7 @@ import javax.inject.Singleton
 @Singleton
 class RandomPicRepositoryImpl @Inject constructor(
     private val api: RandomPicApi
-): RandomPicRepository {
+) : RandomPicRepository {
 
     override fun getPics(page: Int, limit: Int): Flow<Answer<List<Pic>>> = flow {
         emit(Answer.Loading(true))
@@ -22,14 +25,29 @@ class RandomPicRepositoryImpl @Inject constructor(
             val response = api.getNewPics(page, limit)
             emit(Answer.Success(response))
         } catch (e: HttpException) {
+            e.printStackTrace()
             emit(
                 Answer.Error(
-                    message = ":(",
+                    messageId = R.string.data_error_message,
                     data = null
                 )
             )
-        } catch (e: IOException) {
-            emit(Answer.Error("error!!!!1"))
+        } catch (e: NetworkErrorException) {
+            e.printStackTrace()
+            emit(
+                Answer.Error(
+                    messageId = R.string.network_error_message,
+                    data = null
+                )
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(
+                Answer.Error(
+                    messageId = R.string.unknown_error_message,
+                    data = null
+                )
+            )
         }
     }
 

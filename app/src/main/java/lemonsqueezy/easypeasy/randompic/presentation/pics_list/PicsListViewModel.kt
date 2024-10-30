@@ -3,10 +3,12 @@ package lemonsqueezy.easypeasy.randompic.presentation.pics_list
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import lemonsqueezy.easypeasy.randompic.R
 import lemonsqueezy.easypeasy.randompic.domain.repository.RandomPicRepository
 import lemonsqueezy.easypeasy.randompic.util.Answer
 import javax.inject.Inject
@@ -41,7 +43,8 @@ class PicsListViewModel @Inject constructor(
 
                     is Answer.Error -> {
                         state = state.copy(
-                            isLoading = false
+                            isLoading = false,
+                            errorMessageId = ans.messageId ?:  R.string.unknown_error_message
                         )
                     }
 
