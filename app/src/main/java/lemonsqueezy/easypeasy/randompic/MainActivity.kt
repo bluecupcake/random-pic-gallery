@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun NavHost() {
     val PIC = "pic"
+    val PAGE = "page"
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screen.PicsList.route) {
@@ -51,7 +52,8 @@ private fun NavHost() {
         composable(
             route = Screen.PicDetail.route + "?$PIC={$PIC}",
             arguments = listOf(navArgument(PIC) {
-                type = NavType.StringType })
+                type = NavType.StringType
+            })
         ) {
             val jsonPic = it.arguments?.getString(PIC) ?: ""
             val pic = Json.decodeFromString<Pic>(jsonPic)

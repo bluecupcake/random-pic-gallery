@@ -8,4 +8,5 @@
     <string name="pic_download_url">Download URL</string>
     <string name="back">Back</string>
     <string name="refresh">Refresh</string>
+    <string name="loading">Loading animation</string>
 </resources>

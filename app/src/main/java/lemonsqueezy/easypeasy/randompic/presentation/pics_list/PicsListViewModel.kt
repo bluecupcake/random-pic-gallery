@@ -24,15 +24,8 @@ class PicsListViewModel @Inject constructor(
 
     fun onEvent(event: PicListEvent) {
         when (event) {
-            PicListEvent.Refresh -> refresh()
+            is PicListEvent.Refresh -> refresh()
         }
-    }
-
-    private fun refresh() {
-        state = state.copy(
-            page = state.page + 1
-        )
-        getPics()
     }
 
     private fun getPics() {
@@ -60,5 +53,12 @@ class PicsListViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun refresh() {
+        state = state.copy(
+            page = state.page + 1
+        )
+        getPics()
     }
 }
