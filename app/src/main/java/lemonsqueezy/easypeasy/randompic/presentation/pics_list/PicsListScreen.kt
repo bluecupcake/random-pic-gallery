@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -55,7 +56,10 @@ fun PicsListScreen(
                 false -> PicsList(
                     modifier = Modifier.fillMaxSize(),
                     navController = navController,
-                    pics = state.pics.toTypedArray()
+                    pics = state.pics.toTypedArray(),
+                    onRefresh = {
+                        viewModel.onEvent(PicListEvent.Refresh)
+                    }
                 )
             }
         }
@@ -66,9 +70,10 @@ fun PicsListScreen(
 private fun PicsList(
     modifier: Modifier = Modifier,
     navController: NavController,
-    pics: Array<Pic>
+    pics: Array<Pic>,
+    onRefresh: () -> Unit
 ) {
-    Surface(
+    Box(
         modifier = modifier.fillMaxSize()
     ) {
         LazyColumn {
@@ -80,6 +85,13 @@ private fun PicsList(
                     navController
                 )
             }
+        }
+
+        Button(
+            onClick = onRefresh,
+            modifier = Modifier.align(Alignment.BottomCenter)
+        ) {
+            Text(text = stringResource(id = R.string.refresh))
         }
     }
 }

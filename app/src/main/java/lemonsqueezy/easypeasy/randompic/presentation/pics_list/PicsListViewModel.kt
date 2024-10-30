@@ -22,13 +22,22 @@ class PicsListViewModel @Inject constructor(
         getPics()
     }
 
-    fun onEvent() {
+    fun onEvent(event: PicListEvent) {
+        when (event) {
+            PicListEvent.Refresh -> refresh()
+        }
+    }
 
+    private fun refresh() {
+        state = state.copy(
+            page = state.page + 1
+        )
+        getPics()
     }
 
     private fun getPics() {
         viewModelScope.launch {
-            repository.getPics(1, 20).collect { ans ->
+            repository.getPics(state.page, 20).collect { ans ->
                 when (ans) {
                     is Answer.Success -> {
                         state = state.copy(
