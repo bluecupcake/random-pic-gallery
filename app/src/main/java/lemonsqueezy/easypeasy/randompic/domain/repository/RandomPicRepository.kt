@@ -8,5 +8,5 @@ interface RandomPicRepository {
 
     fun getPics(page: Int, limit: Int): Flow<Answer<List<Pic>>>
 
-    fun getPicDetail(): Flow<Answer<Pic>>
+    fun getPicDetail(): Flow<Answer<Pic>> // todo in future maybe
 }

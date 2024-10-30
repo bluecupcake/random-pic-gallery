@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">random pic</string>
     <string name="home_title">Gallery of random pics</string>
+    <string name="pic_id">ID</string>
+    <string name="pic_author">Author</string>
+    <string name="pic_width">Width</string>
+    <string name="pic_height">Height</string>
+    <string name="pic_download_url">Download URL</string>
+    <string name="back">Back</string>
 </resources>

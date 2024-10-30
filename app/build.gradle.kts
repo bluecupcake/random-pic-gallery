@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    kotlin("plugin.serialization") version "2.0.21"
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -88,4 +90,7 @@ dependencies {
 
     // GIFs
     implementation("com.google.accompanist:accompanist-drawablepainter:0.35.0-alpha")
+
+    // Serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 }

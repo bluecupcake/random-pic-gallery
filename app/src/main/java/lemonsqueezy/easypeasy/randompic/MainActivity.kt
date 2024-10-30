@@ -15,6 +15,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.json.Json
+import lemonsqueezy.easypeasy.randompic.domain.model.Pic
 import lemonsqueezy.easypeasy.randompic.presentation.pic_details.PicDetailsScreen
 import lemonsqueezy.easypeasy.randompic.presentation.pics_list.PicsListScreen
 import lemonsqueezy.easypeasy.randompic.ui.theme.RandomPicTheme
@@ -39,6 +41,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun NavHost() {
+    val PIC = "pic"
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screen.PicsList.route) {
@@ -46,16 +49,14 @@ private fun NavHost() {
             PicsListScreen(navController = navController)
         }
         composable(
-            route = Screen.PicDetail.route + "?id={id}",
-            arguments = listOf(
-                navArgument("id") {
-                    type = NavType.IntType
-                    nullable = false
-                }
-            )
+            route = Screen.PicDetail.route + "?$PIC={$PIC}",
+            arguments = listOf(navArgument(PIC) {
+                type = NavType.StringType })
         ) {
+            val jsonPic = it.arguments?.getString(PIC) ?: ""
+            val pic = Json.decodeFromString<Pic>(jsonPic)
             PicDetailsScreen(
-                picId = it.arguments?.getInt("id") ?: -1,
+                pic = pic,
                 navController = navController
             )
         }

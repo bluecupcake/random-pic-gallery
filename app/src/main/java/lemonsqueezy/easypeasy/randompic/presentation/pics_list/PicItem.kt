@@ -21,6 +21,8 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import lemonsqueezy.easypeasy.randompic.Screen
 import lemonsqueezy.easypeasy.randompic.data.remote.RandomPicApi.Companion.BASE_URL
 import lemonsqueezy.easypeasy.randompic.domain.model.Pic
@@ -30,12 +32,13 @@ fun PicItem(
     pic: Pic,
     navController: NavController
 ) {
+    val json = Json.encodeToString(pic)
     Box(
         modifier = Modifier
             .padding(horizontal = 24.dp, vertical = 12.dp)
             .clickable {
-            navController.navigate(route = Screen.PicDetail.route + "?id=${pic.id}")
-        }
+                navController.navigate(route = Screen.PicDetail.route + "?pic=$json")
+            }
     ) {
         val painter = rememberAsyncImagePainter(
             model = ImageRequest.Builder(LocalContext.current)
@@ -54,7 +57,7 @@ fun PicItem(
         )
 
         Text(
-            text = pic.id,
+            text = pic.id.toString(),
             fontSize = 24.sp,
             modifier = Modifier.align(Alignment.CenterStart)
         )

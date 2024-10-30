@@ -14,7 +14,7 @@ interface RandomPicApi {
     ): List<Pic>
 
     @GET("id/{id}/info")
-    suspend fun getPicDetails(@Path("id") id: Int): Pic
+    suspend fun getPicDetails(@Path("id") id: Int): Pic // todo in future maybe
 
     companion object {
         const val BASE_URL = "https://picsum.photos/"
